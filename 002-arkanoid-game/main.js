@@ -58,7 +58,7 @@ for (let c = 0; c < brickColumnCount; c++) {
     }
 }
 
-const PADDLE_SENSITIVITY = 7
+const PADDLE_SENSITIVITY = 8
 
 function drawBall() {
     ctx.beginPath()
@@ -146,7 +146,10 @@ function ballMovement() {
 
     if ( isBallSameXAsPaddle && isBallTouchingPaddle ) {
         dy = -dy
-    } else if (y + dy > canvas.height - ballRadius) {
+    } else if (
+        y + dy > canvas.height - ballRadius ||
+        y + dy > paddleY + paddleHeight       
+    ) {
         isFalling = true
     }
 
@@ -173,9 +176,9 @@ function initEvents() {
 
     function keyDownHandler(e) {
         const { key } = e
-        if (key === 'Right' || key === 'ArrowRight') {
+        if (key === 'Right' || key === 'ArrowRight' || key === 'd' || key === 'D') {
             rightPressed = true
-        } else if (key === 'Left' || key === 'ArrowLeft') {
+        } else if (key === 'Left' || key === 'ArrowLeft' || key === 'a' || key === 'A') {
             leftPressed = true
         } else if (key === 'r' || key === 'R') {
             if (isGameOver) {
@@ -186,9 +189,9 @@ function initEvents() {
 
     function keyUpHandler(e) {
         const { key } = e
-        if (key === 'Right' || key === 'ArrowRight') {
+        if (key === 'Right' || key === 'ArrowRight' || key === 'd' || key === 'D') {
             rightPressed = false
-        } else if (key === 'Left' || key === 'ArrowLeft') {
+        } else if (key === 'Left' || key === 'ArrowLeft' || key === 'a' || key === 'A') {
             leftPressed = false
         }
     }
